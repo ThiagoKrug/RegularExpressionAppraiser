@@ -29,8 +29,15 @@ public class ExpressaoRegular {
                 if (lastChar.charValue() == "|".charAt(0) || lastChar.charValue() == ".".charAt(0)) {
                     return false;
                 }
+                if (lastChar.charValue() == "*".charAt(0) && carac == "*".charAt(0)) {
+                    return false;
+                }
             } else {
-                // é um caractere qualquer
+                if (lastChar != null) {
+                    if (isOperador(lastChar) == false && lastChar.charValue() != "(".charAt(0) && lastChar.charValue() != ")".charAt(0)) {
+                        return false;
+                    }
+                }
             }
             lastChar = carac;
         }
@@ -51,26 +58,30 @@ public class ExpressaoRegular {
         }
         return false;
     }
-    
+
     public void quebrarExpressaoRegular(String er) {
-        for (int i = 0; i < er.length(); i++) {
-            char carac = er.charAt(i);
-            
-        }
     }
-    
-    public String corrigirExpressaoRegular(String er) {
-        String erCorrigida = "";
-        Character lastChar = null;
+
+    private Nodo quebrarParenteses(String er, int altura, Nodo nodo) {
+        int parenteses = 0, inicio = 0, fim;
         for (int i = 0; i < er.length(); i++) {
-            char carac = er.charAt(i);
-            if (lastChar != null) {
-                if (isOperador(lastChar) == false && isOperador(carac) == false) {
-                    erCorrigida += String.valueOf(".".charAt(0));
+            char c = er.charAt(i);
+            if ("(".charAt(0) == c) {
+                parenteses++;
+                inicio = i;
+            } else if (")".charAt(0) == c) {
+                parenteses--;
+                fim = i;
+                if (parenteses == 0) {
+                    Nodo n = new Nodo();
+                    n.setAltura(altura);
+                    String carac = er.substring(inicio, fim);
+                    n.setCarac(carac);
+                    if (carac.length() > 1) {
+                        n.addNodo(quebrarParenteses(n.getCarac(), altura + 1));
+                    }
                 }
             }
-            erCorrigida += String.valueOf(carac);
         }
-        return erCorrigida;
     }
 }

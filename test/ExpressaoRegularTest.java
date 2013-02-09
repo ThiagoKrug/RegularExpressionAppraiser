@@ -1,4 +1,5 @@
 
+import java.util.Iterator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -63,5 +64,16 @@ public class ExpressaoRegularTest {
         assertFalse(er.validarExpressaoRegular("a.*bc"));
         assertFalse(er.validarExpressaoRegular("a.*.bc"));
         assertFalse(er.validarExpressaoRegular("a*b**c"));
+    }
+    
+    @Test
+    public void testQuebrarParenteses() {
+        ExpressaoRegular er = new ExpressaoRegular();
+        Nodo n = er.quebrarParenteses("(a.b).(a|b).((a|b).c)", 0, new Nodo());
+        System.out.println(n);
+        for (Iterator<Nodo> it = n.getNodos().iterator(); it.hasNext();) {
+            Nodo nodo = it.next();
+            System.out.println(nodo);
+        }
     }
 }

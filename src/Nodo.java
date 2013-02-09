@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -17,6 +18,7 @@ public class Nodo {
 
     public Nodo() {
         this.nodos = new ArrayList<>();
+        this.carac = "";
     }
 
     public List<Nodo> getNodos() {
@@ -63,6 +65,11 @@ public class Nodo {
     public void setCaractere(boolean caractere) {
         this.caractere = caractere;
         this.operador = !caractere;
+    }
+
+    @Override
+    public String toString() {
+        return this.getCarac();
     }
     
 }

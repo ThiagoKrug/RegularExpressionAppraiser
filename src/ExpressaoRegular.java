@@ -10,6 +10,9 @@ public class ExpressaoRegular {
         Character lastChar = null;
         for (int i = 0; i < er.length(); i++) {
             char carac = er.charAt(i);
+            if (paranteses < 0) {
+                return false;
+            }
             if (carac == "(".charAt(0)) {
                 paranteses++;
             } else if (carac == ")".charAt(0)) {
@@ -62,26 +65,31 @@ public class ExpressaoRegular {
     public void quebrarExpressaoRegular(String er) {
     }
 
-    private Nodo quebrarParenteses(String er, int altura, Nodo nodo) {
+    public Nodo quebrarParenteses(String er, int altura, Nodo n) {
         int parenteses = 0, inicio = 0, fim;
         for (int i = 0; i < er.length(); i++) {
             char c = er.charAt(i);
             if ("(".charAt(0) == c) {
                 parenteses++;
-                inicio = i;
+                if (parenteses == 1) {
+                    inicio = i;
+                }
             } else if (")".charAt(0) == c) {
                 parenteses--;
-                fim = i;
                 if (parenteses == 0) {
-                    Nodo n = new Nodo();
+                    fim = i;
                     n.setAltura(altura);
-                    String carac = er.substring(inicio, fim);
-                    n.setCarac(carac);
+                    String carac = er.substring(inicio + 1, fim);
+                    n.setCarac(n.getCarac() + carac);
                     if (carac.length() > 1) {
-                        n.addNodo(quebrarParenteses(n.getCarac(), altura + 1));
+                        Nodo nodo = quebrarParenteses(carac, altura + 1, new Nodo());
+                        if (nodo.getCarac().equalsIgnoreCase("") == false) {
+                            n.addNodo(nodo);
+                        }
                     }
                 }
             }
         }
+        return n;
     }
 }

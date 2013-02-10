@@ -1,7 +1,5 @@
 
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -84,9 +82,33 @@ public class ExpressaoRegularTest {
     }
 
     @Test
-    public void testExpressaoRegularFinal() {
+    public void testExpressaoRegularFinalConcatenacao() {
         ExpressaoRegular er = new ExpressaoRegular();
         String expression = "((a.b).c).(a.b)";
+        if (er.validarExpressaoRegular(expression)) {
+            Nodo nodo = er.quebrarExpressaoRegular(expression, 0, new Nodo());
+            AFN afn = null;
+            try {
+                afn = er.transformarEmAFN(nodo);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            System.out.println(afn);
+            if (afn.calcularStringValidaAFD("abcab")) {
+                System.out.println("funfo =D");
+            } else {
+                System.out.println("naum funfo!");
+            }
+        } else {
+            System.out.println("Expressão regular informada é inválida!");
+        }
+        assertTrue(true);
+    }
+    
+    @Test
+    public void testExpressaoRegularFinalUniao() {
+        ExpressaoRegular er = new ExpressaoRegular();
+        String expression = "((a.b).c).(a|b)";
         if (er.validarExpressaoRegular(expression)) {
             Nodo nodo = er.quebrarExpressaoRegular(expression, 0, new Nodo());
             AFN afn = null;

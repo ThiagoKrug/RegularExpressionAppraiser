@@ -2,6 +2,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +24,11 @@ public class Main {
         ExpressaoRegular er = new ExpressaoRegular();
         if (er.validarExpressaoRegular(regularExpression)) {
             Nodo nodo = er.quebrarExpressaoRegular(regularExpression, 0, new Nodo());
-            afn = er.transformarEmAFN(nodo);
+            try {
+                afn = er.transformarEmAFN(nodo);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         } else {
             System.out.println("Expressão regular informada é inválida!");
         }
@@ -35,7 +41,7 @@ public class Main {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            if (afn.calcularStringValida(string)) {
+            if (afn.calcularStringValidaAFD(string)) {
                 System.out.println("String informada é válida!");
             } else {
                 System.out.println("String informada é inválida!");

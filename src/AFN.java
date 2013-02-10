@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 /**
  *
@@ -151,7 +152,7 @@ public class AFN {
         }
     }
 
-    public boolean calcularStringValida(String string) {
+    public boolean calcularStringValidaAFD(String string) {
         Estado estadoAtual = this.estadoInicial;
         for (int i = 0; i < string.length(); i++) {
             String carac = String.valueOf(string.charAt(i));
@@ -159,6 +160,9 @@ public class AFN {
                 FuncaoTransicao funcaoTransicao = it.next();
                 if (carac.equalsIgnoreCase(funcaoTransicao.getCaractere().getCaractere())) {
                     estadoAtual = funcaoTransicao.getResultado();
+                } else if (funcaoTransicao.getCaractere().getCaractere().equalsIgnoreCase(Caractere.STRING_VAZIA.getCaractere())) {
+                    estadoAtual = funcaoTransicao.getResultado();
+                    i--;
                 }
             }
         }

@@ -121,6 +121,15 @@ public class ExpressaoRegular {
                         throw new Exception("afn1 ou afn2 está nulo!");
                     }
                 } else if (c == "|".charAt(0)) {
+                    afn1 = afns.get(cont);
+                    cont++;
+                    afn2 = afns.get(cont);
+                    cont++;
+                    if (afn1 != null && afn2 != null) {
+                        afn = new Uniao().calcularUniao(afn1, afn2);
+                    } else {
+                        throw new Exception("afn1 ou afn2 está nulo!");
+                    }
                 } else if (c == "*".charAt(0)) {
                 }
             }

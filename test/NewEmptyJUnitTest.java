@@ -44,7 +44,7 @@ public class NewEmptyJUnitTest {
 
         AFN afn = new AFN();
         afn.setEstadoInicial(q0);
-        assertTrue(afn.calcularStringValida("a"));
+        assertTrue(afn.calcularStringValidaAFD("a"));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class NewEmptyJUnitTest {
 
         AFN afn = new AFN();
         afn.setEstadoInicial(q0);
-        assertTrue(afn.calcularStringValida("ab"));
+        assertTrue(afn.calcularStringValidaAFD("ab"));
     }
     
     @Test
